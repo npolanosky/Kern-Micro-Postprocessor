@@ -222,13 +222,13 @@ var singleLineCoolant = false; // specifies to output multiple coolant codes in 
 // {id: COOLANT_THROUGH_TOOL, on: "M88 P3 (myComment)", off: "M89"}
 var coolants = [
   {id:COOLANT_FLOOD, on:8, off:9},
-  {id:COOLANT_MIST, on:25, off:9},
-  {id:COOLANT_THROUGH_TOOL, on:7, off:9},
-  {id:COOLANT_AIR},
-  {id:COOLANT_AIR_THROUGH_TOOL},
+  {id:COOLANT_MIST, on:7, off:9},
+  {id:COOLANT_THROUGH_TOOL, on:308, off:309},
+  {id:COOLANT_AIR, on:510, off:511},
+  {id:COOLANT_AIR_THROUGH_TOOL, on:310, off:309},
   {id:COOLANT_SUCTION},
   {id:COOLANT_FLOOD_MIST},
-  {id:COOLANT_FLOOD_THROUGH_TOOL},
+  {id:COOLANT_FLOOD_THROUGH_TOOL, on:[308, 8], off:[309, 9]},
   {id:COOLANT_OFF, off:9}
 ];
 
@@ -240,7 +240,7 @@ var useCycl205 = false; // use CYCL 205 for universal pecking
 var useTCPPositioning = false; // enable to use prepositioning with TCP, recommended for head/head or head/table kinematics
 var maximumLineLength = 80; // the maximum number of charaters allowed in a line
 var minimumCyclePoints = 5; // minimum number of points in cycle operation to consider for subprogram
-var allowIndexingWCSProbing = false; // specifies that probe WCS with tool orientation is supported
+var allowIndexingWCSProbing = true; // specifies that probe WCS with tool orientation is supported
 
 var WARNING_WORK_OFFSET = 0;
 
@@ -276,8 +276,8 @@ var radiusCompensationTable = new Table(
   "Invalid radius compensation"
 );
 
-var xyzFormat = createFormat({decimals:(unit == MM ? 3 : 4), forceSign:true});
-var abcFormat = createFormat({decimals:3, forceSign:true, scale:DEG});
+var xyzFormat = createFormat({decimals:(unit == MM ? 5 : 6), forceSign:true});
+var abcFormat = createFormat({decimals:4, forceSign:true, scale:DEG});
 // var cFormat = createFormat({decimals:3, forceSign:true, scale:DEG, cyclicLimit:2*Math.PI, cyclicSign:1});
 var feedFormat = createFormat({decimals:(unit == MM ? 0 : 2), scale:(unit == MM ? 1 : 10)});
 var txyzFormat = createFormat({decimals:(unit == MM ? 7 : 8), forceSign:true});
@@ -660,8 +660,9 @@ function setTolerance(tolerance) {
   if (tolerance > 0) {
     writeBlock("CYCL DEF 32.0 " + localize("TOLERANCE"));
     writeBlock("CYCL DEF 32.1 T" + xyzFormat.format(tolerance * 1.3));
+    var hscMode = tolerance >= 0.025 ? 1 : 0;
     if (machineConfiguration.isMultiAxisConfiguration()) {
-      writeBlock("CYCL DEF 32.2 HSC-MODE:0 TA0.5"); // required for 5-axis support
+      writeBlock("CYCL DEF 32.2 HSC-MODE:" + hscMode + " TA0.5"); // required for 5-axis support
     }
   } else {
     writeBlock("CYCL DEF 32.0 " + localize("TOLERANCE")); // cancel tolerance
@@ -1266,6 +1267,10 @@ function setAbsoluteMode(xyz, abc) {
   }
 }
 
+function onPassThrough(text) {
+  writeBlock(text);
+}
+
 function onSection() {
   if (getProperty("toolAsName") && !tool.description) {
     if (hasParameter("operation-comment")) {
@@ -1331,8 +1336,8 @@ function onSection() {
     }
 
     if (fullRetract) {
-      // writeRetract(X);
-      // writeRetract(Y);
+      //writeRetract(X);
+      //writeRetract(Y);
     }
   }
 
@@ -1425,8 +1430,8 @@ function onSection() {
 
     if (fullRetract) {
       writeRetract(Z);
-      // writeRetract(X);
-      // writeRetract(Y);
+      //writeRetract(X);
+      //writeRetract(Y);
     } else {
       // simple retract
       writeRetract(Z);
@@ -3106,8 +3111,8 @@ var mapCommand = {
   COMMAND_SPINDLE_CLOCKWISE       : 3,
   COMMAND_SPINDLE_COUNTERCLOCKWISE: 4,
   // COMMAND_START_SPINDLE
-  COMMAND_STOP_SPINDLE            : 5
-  //COMMAND_ORIENTATE_SPINDLE:19,
+  COMMAND_STOP_SPINDLE            : 5,
+  COMMAND_ORIENTATE_SPINDLE       : 19
   //COMMAND_LOAD_TOOL:6, // do not use
   //COMMAND_COOLANT_ON,
   //COMMAND_COOLANT_OFF,
@@ -3137,12 +3142,16 @@ function onCommand(command) {
     onCommand(tool.clockwise ? COMMAND_SPINDLE_CLOCKWISE : COMMAND_SPINDLE_COUNTERCLOCKWISE);
     return;
   case COMMAND_LOCK_MULTI_AXIS:
+    writeBlock(mFormat.format(420));
     return;
   case COMMAND_UNLOCK_MULTI_AXIS:
+    writeBlock(mFormat.format(421));
     return;
   case COMMAND_START_CHIP_TRANSPORT:
+    writeBlock(mFormat.format(25));
     return;
   case COMMAND_STOP_CHIP_TRANSPORT:
+    writeBlock(mFormat.format(26));
     return;
   case COMMAND_BREAK_CONTROL:
     return;
