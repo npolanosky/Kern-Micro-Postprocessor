@@ -15,7 +15,7 @@ vendor = "Kern Microtechnik";
 vendorUrl = "https://www.kern-microtechnik.com/";
 legal = "Copyright (C) 2012-2019 by Autodesk, Inc.";
 certificationLevel = 2;
-minimumRevision = 40783;
+minimumRevision = 45702;
 
 longDescription = "Generic post for use with all common KERN machines like KERN Micro Vario, Micro Pro and Micro HD with Heidenhain controls.";
 
@@ -39,52 +39,192 @@ allowedCircularPlanes = undefined; // allow any circular motion
 
 // user-defined properties
 properties = {
-  writeMachine: false, // write machine
-  writeTools: true, // writes the tools
-  writeVersion: false, // include version info
-  usePlane: "true", // specifies the tilted workplane command to use
-  useFunctionTCPM: true, // use FUNCTION TCPM instead of M128/M129
-  preloadTool: true, // preloads next tool on tool change if any
-  expandCycles: true, // expands unhandled cycles
-  smoothingTolerance: 0.1, // smoothing tolerance (0 ~ disabled)
-  optionalStop: true, // optional stop
-  structureComments: true, // show structure comments
-  useM92: false, // use M92 instead of M91
-  useM140: true, // Specifies to use M140 MB MAX for Z-axis retracts instead of M91/M92 positions
-  useSubroutines: false, // specifies that subroutines per each operation should be generated
-  useSubroutinePatterns: false, // generates subroutines for patterned operation
-  useSubroutineCycles: false, // generates subroutines for cycle operations on same holes
-  machineDefinition: "", // specifies the path of the machine definition
-  useParametricFeed: true, // specifies that feed should be output using Q values
-  showNotes: false, // specifies that operation notes should be output.
-  preferTilt: -1, // -1: negative, 0:dont care, 1: positive
-  toolAsName: false, // specifies if the tool should be called with a number or with the tool description
-  decimalPrecision: 4 // specifies the numbers of decimals to use in the NC program
-};
-
-// user-defined property definitions
-propertyDefinitions = {
-  writeMachine: {title:"Write machine", description:"Output the machine settings in the header of the code.", group:0, type:"boolean"},
-  writeTools: {title:"Write tool list", description:"Output a tool list in the header of the code.", group:0, type:"boolean"},
-  writeVersion: {title:"Write version", description:"Write the version number in the header of the code.", group:0, type:"boolean"},
-  usePlane: {title:"Tilted workplane", description:"Specifies the tilted workplane command to use.", type:"enum", values:[{id:"none", title:"Use rotary angles"}, {id:"true", title:"Use Plane Spatial"}, {id:"false", title:"Use Cycle19"}]},
-  useFunctionTCPM: {title:"Use function TCPM", description:"Specifies whether to use Function TCPM instead of M128/M129.", type:"boolean"},
-  preloadTool: {title:"Preload tool", description:"Preloads the next tool at a tool change (if any).", type:"boolean"},
-  expandCycles: {title:"Expand cycles", description:"If enabled, unhandled cycles are expanded.", type:"boolean"},
-  smoothingTolerance: {title:"Smoothing tolerance", description:"Smoothing tolerance (-1 for disabled).", type:"number"},
-  optionalStop: {title:"Optional stop", description:"Outputs optional stop code during when necessary in the code.", type:"boolean"},
-  structureComments: {title:"Structure comments", description:"Shows structure comments.", type:"boolean"},
-  useM92: {title:"Use M92", description:"If enabled, M91 is used instead of M91.", type:"boolean"},
-  useM140: {title:"Use M140", description:"Specifies to use M140 MB MAX for Z-axis retracts instead of M91/M92 positions.", type:"boolean"},
-  useSubroutines: {title:"Use subroutines", description:"Specifies that subroutines per each operation should be generated.", type:"boolean"},
-  useSubroutinePatterns: {title:"Use subroutine patterns", description:"Generates subroutines for patterned operation.", type:"boolean"},
-  useSubroutineCycles: {title:"Use subroutine cycles", description:"Generates subroutines for cycle operations on same holes.", type:"boolean"},
-  machineDefinition: {title:"Machine definition", description:"Specifies the file path of the machine definition to use.", type:"file", filters:"*.machine|Machine Configuration"},
-  useParametricFeed:  {title:"Parametric feed", description:"Specifies the feed value that should be output using a Q value.", type:"boolean"},
-  showNotes: {title:"Show notes", description:"Writes operation notes as comments in the outputted code.", type:"boolean"},
-  preferTilt: {title:"Prefer tilt", description:"Specifies which tilt direction is preferred.", type:"integer", values:[{id:-1, title:"Negative"}, {id:0, title:"Either"}, {id:1, title:"Positive"}]},
-  toolAsName: {title:"Tool as name", description:"If enabled, the tool will be called with the tool description rather than the tool number.", type:"boolean"},
-  decimalPrecision: {title:"Decimal Precision", description:"Specifies the numbers of decimals to use in the NC program.", type:"number"}
+  writeMachine: {
+    title: "Write machine",
+    description: "Output the machine settings in the header of the code.",
+    group: 0,
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  writeTools: {
+    title: "Write tool list",
+    description: "Output a tool list in the header of the code.",
+    group: 0,
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  writeVersion: {
+    title: "Write version",
+    description: "Write the version number in the header of the code.",
+    group: 0,
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  usePlane: {
+    title: "Tilted workplane",
+    description: "Specifies the tilted workplane command to use.",
+    type: "enum",
+    values: [
+      {
+        id: "none",
+        title: "Use rotary angles"
+      },
+      {
+        id: "true",
+        title: "Use Plane Spatial"
+      },
+      {
+        id: "false",
+        title: "Use Cycle19"
+      }
+    ],
+    value: "true",
+    scope: "post"
+  },
+  useFunctionTCPM: {
+    title: "Use function TCPM",
+    description: "Specifies whether to use Function TCPM instead of M128/M129.",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  preloadTool: {
+    title: "Preload tool",
+    description: "Preloads the next tool at a tool change (if any).",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  expandCycles: {
+    title: "Expand cycles",
+    description: "If enabled, unhandled cycles are expanded.",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  smoothingTolerance: {
+    title: "Smoothing tolerance",
+    description: "Smoothing tolerance (-1 for disabled).",
+    type: "number",
+    value: 0.1,
+    scope: "post"
+  },
+  optionalStop: {
+    title: "Optional stop",
+    description: "Outputs optional stop code during when necessary in the code.",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  structureComments: {
+    title: "Structure comments",
+    description: "Shows structure comments.",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  useM92: {
+    title: "Use M92",
+    description: "If enabled, M91 is used instead of M91.",
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  useM140: {
+    title: "Use M140",
+    description: "Specifies to use M140 MB MAX for Z-axis retracts instead of M91/M92 positions.",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  useSubroutines: {
+    title: "Use subroutines",
+    description: "Specifies that subroutines per each operation should be generated.",
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  useSubroutinePatterns: {
+    title: "Use subroutine patterns",
+    description: "Generates subroutines for patterned operation.",
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  useSubroutineCycles: {
+    title: "Use subroutine cycles",
+    description: "Generates subroutines for cycle operations on same holes.",
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  machineDefinition: {
+    title: "Machine definition",
+    description: "Specifies the file path of the machine definition to use.",
+    type: "file",
+    filters: "*.machine|Machine Configuration",
+    value: "",
+    scope: "post"
+  },
+  useParametricFeed: {
+    title: "Parametric feed",
+    description: "Specifies the feed value that should be output using a Q value.",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  },
+  showNotes: {
+    title: "Show notes",
+    description: "Writes operation notes as comments in the outputted code.",
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  preferTilt: {
+    title: "Prefer tilt",
+    description: "Specifies which tilt direction is preferred.",
+    type: "integer",
+    values: [
+      {
+        id: -1,
+        title: "Negative"
+      },
+      {
+        id: 0,
+        title: "Either"
+      },
+      {
+        id: 1,
+        title: "Positive"
+      }
+    ],
+    value: -1,
+    scope: "post"
+  },
+  toolAsName: {
+    title: "Tool as name",
+    description: "If enabled, the tool will be called with the tool description rather than the tool number.",
+    type: "boolean",
+    value: false,
+    scope: "post"
+  },
+  decimalPrecision: {
+    title: "Decimal Precision",
+    description: "Specifies the numbers of decimals to use in the NC program.",
+    type: "number",
+    value: 4,
+    scope: "post"
+  },
+  homeXYAtEnd: {
+    title: "Home XY at end",
+    description: "Specifies that the machine moves to the home position in XY at the end of the program.",
+    type: "boolean",
+    value: true,
+    scope: "post"
+  }
 };
 
 var singleLineCoolant = false; // specifies to output multiple coolant codes in one line rather than in separate lines
@@ -219,7 +359,7 @@ function writeComment(text) {
 
 /** Adds a structure comment. */
 function writeStructureComment(text) {
-  if (properties.structureComments) {
+  if (getProperty("structureComments")) {
     if (isTextSupported(text)) {
       writeln(blockNumber + SP + "* - " + text); // never make optional
       ++blockNumber;
@@ -240,17 +380,17 @@ function printData(text) {
 }
 
 function onOpen() {
-  xyzFormat.setNumberOfDecimals(unit == MM ? properties.decimalPrecision : properties.decimalPrecision * 1.5);
+  xyzFormat.setNumberOfDecimals(unit == MM ? getProperty("decimalPrecision") : getProperty("decimalPrecision") * 1.5);
   xOutput = createVariable({prefix:" X"}, xyzFormat);
   yOutput = createVariable({prefix:" Y"}, xyzFormat);
   zOutput = createVariable({prefix:" Z"}, xyzFormat);
-  abcFormat.setNumberOfDecimals(unit == MM ? properties.decimalPrecision : properties.decimalPrecision * 1.5);
+  abcFormat.setNumberOfDecimals(unit == MM ? getProperty("decimalPrecision") : getProperty("decimalPrecision") * 1.5);
   aOutput = createVariable({prefix:" A"}, abcFormat);
   bOutput = createVariable({prefix:" B"}, abcFormat);
   cOutput = createVariable({prefix:" C"}, abcFormat);
 
-  if (properties.machineDefinition) {
-    machineConfiguration = MachineConfiguration.createFromPath(findFile(properties.machineDefinition));
+  if (getProperty("machineDefinition")) {
+    machineConfiguration = MachineConfiguration.createFromPath(findFile(getProperty("machineDefinition")));
     log("");
     log("Machine configuration:");
     log(getMachineConfigurationAsText(machineConfiguration));
@@ -258,7 +398,7 @@ function onOpen() {
     optimizeMachineAngles2(0); // using M128 mode
   } else if (true) {
     // NOTE: setup your machine here
-    // var aAxis = createAxis({coordinate:0, table:true, axis:[1, 0, 0], range:[-120.0001, 120.0001], preference: properties.preferTilt});
+    // var aAxis = createAxis({coordinate:0, table:true, axis:[1, 0, 0], range:[-120.0001, 120.0001], preference: getProperty("preferTilt")});
     var bAxis = createAxis({coordinate:1, table:true, axis:[0, 1, 0], range:[-179.0001, 110.0001], preference:-1});
     var cAxis = createAxis({coordinate:2, table:true, axis:[0, 0, 1], range:[0, 360], cyclic:true});
     machineConfiguration = new MachineConfiguration(bAxis, cAxis);
@@ -300,7 +440,7 @@ function onOpen() {
     }
   }
 
-  if (properties.writeVersion) {
+  if (getProperty("writeVersion")) {
     if ((typeof getHeaderVersion == "function") && getHeaderVersion()) {
       writeComment(localize("post version") + ": " + getHeaderVersion());
     }
@@ -314,7 +454,7 @@ function onOpen() {
   var model = machineConfiguration.getModel();
   var description = machineConfiguration.getDescription();
 
-  if (properties.writeMachine && (vendor || model || description)) {
+  if (getProperty("writeMachine") && (vendor || model || description)) {
     writeSeparator();
     writeComment(localize("Machine"));
     if (vendor) {
@@ -331,7 +471,7 @@ function onOpen() {
   }
 
   // dump tool information
-  if (properties.writeTools) {
+  if (getProperty("writeTools")) {
     var tools = getToolTable();
     if (tools.getNumberOfTools() > 0) {
       var zRanges = {};
@@ -353,7 +493,7 @@ function onOpen() {
       writeComment(localize("Tools"));
       for (var i = 0; i < tools.getNumberOfTools(); ++i) {
         var tool = tools.getTool(i);
-        var comment = (properties.toolAsName ? "\"" + (tool.description.toUpperCase()) + "\"" : "  #" + tool.number) + " " +
+        var comment = (getProperty("toolAsName") ? "\"" + (tool.description.toUpperCase()) + "\"" : "  #" + tool.number) + " " +
           localize("D") + "=" + spatialFormat.format(tool.diameter) +
           conditional(tool.cornerRadius > 0, " " + localize("CR") + "=" + spatialFormat.format(tool.cornerRadius)) +
           conditional((tool.taperAngle > 0) && (tool.taperAngle < Math.PI), " " + localize("TAPER") + "=" + taperFormat.format(tool.taperAngle) + localize("deg"));
@@ -441,7 +581,7 @@ function setTolerance(tolerance) {
 
 function getSEQ() {
   var SEQ = "";
-  switch (properties.preferTilt) {
+  switch (getProperty("preferTilt")) {
   case -1:
     SEQ = " SEQ-";
     break;
@@ -478,16 +618,16 @@ function forceWorkPlane() {
 
 function defineWorkPlane(_section, _setWorkPlane) {
   var abc = new Vector(0, 0, 0);
-  if (forceMultiAxisIndexing || (!is3D() && properties.usePlane != "none") || machineConfiguration.isMultiAxisConfiguration()) { // use 5-axis indexing for multi-axis mode
+  if (forceMultiAxisIndexing || (!is3D() && getProperty("usePlane") != "none") || machineConfiguration.isMultiAxisConfiguration()) { // use 5-axis indexing for multi-axis mode
     if (_section.isMultiAxis()) {
       forceWorkPlane();
       cancelTransformation();
     } else {
-      if (properties.usePlane == "true") {
+      if (getProperty("usePlane") == "true") {
         abc = _section.workPlane.getEuler2(EULER_XYZ_S);
         var remaining = Matrix.getXYZRotation(abc).getTransposed().multiply(_section.workPlane);
         setRotation(remaining);
-      } else if (properties.usePlane == "false") {
+      } else if (getProperty("usePlane") == "false") {
         if (machineConfiguration.isMultiAxisConfiguration()) {
           abc = getWorkPlaneMachineABC(_section.workPlane, _setWorkPlane);
         } else {
@@ -547,7 +687,7 @@ function setWorkPlane(abc, turn, isPrepositioned) {
     onCommand(COMMAND_UNLOCK_MULTI_AXIS);
   }
 
-  if (properties.usePlane == "true") {
+  if (getProperty("usePlane") == "true") {
     var TURN = turn ? " TURN FMAX" : " STAY"; // alternatively slow down with F9999
     if (abc.isNonZero()) {
       writeBlock(
@@ -564,7 +704,7 @@ function setWorkPlane(abc, turn, isPrepositioned) {
     } else {
       writeBlock("PLANE RESET" + TURN);
     }
-  } else if (properties.usePlane == "false") {
+  } else if (getProperty("usePlane") == "false") {
     writeBlock("CYCL DEF 19.0 " + localize("WORKING PLANE"));
     if (machineConfiguration.isMultiAxisConfiguration()) {
       writeBlock(
@@ -819,7 +959,7 @@ function subprogramDefine(_initialPosition, _abc, _retracted, _zIsOutput) {
   // convert patterns into subprograms
   var usePattern = false;
   patternIsActive = false;
-  if (currentSection.isPatterned && currentSection.isPatterned() && properties.useSubroutinePatterns) {
+  if (currentSection.isPatterned && currentSection.isPatterned() && getProperty("useSubroutinePatterns")) {
     currentPattern = currentSection.getPatternId();
     firstPattern = true;
     for (var i = 0; i < definedPatterns.length; ++i) {
@@ -866,7 +1006,7 @@ function subprogramDefine(_initialPosition, _abc, _retracted, _zIsOutput) {
   }
 
   // Output cycle operation as subprogram
-  if (!usePattern && properties.useSubroutineCycles && currentSection.doesStrictCycle &&
+  if (!usePattern && getProperty("useSubroutineCycles") && currentSection.doesStrictCycle &&
       (currentSection.getNumberOfCycles() == 1) && currentSection.getNumberOfCyclePoints() >= minimumCyclePoints) {
     var finalPosition = getFramePosition(currentSection.getFinalPosition());
     currentPattern = currentSection.getNumberOfCyclePoints();
@@ -901,7 +1041,7 @@ function subprogramDefine(_initialPosition, _abc, _retracted, _zIsOutput) {
   }
 
   // Output each operation as a subprogram
-  if (!usePattern && properties.useSubroutines) {
+  if (!usePattern && getProperty("useSubroutines")) {
     currentSubprogram = nextLabel++;
     writeBlock("CALL LBL " + currentSubprogram);
     firstPattern = true;
@@ -919,8 +1059,8 @@ function subprogramStart(_initialPosition, _abc, _incremental) {
     "LBL " + currentSubprogram +
     conditional(comment, formatComment(comment.substr(0, maximumLineLength - 2 - 6 - 1)))
   );
-  saveShowSequenceNumbers = properties.showSequenceNumbers;
-  properties.showSequenceNumbers = false;
+  saveShowSequenceNumbers = getProperty("showSequenceNumbers");
+  setProperty("showSequenceNumbers",false);
   if (_incremental) {
     setIncrementalMode(_initialPosition, _abc);
   }
@@ -933,7 +1073,7 @@ function subprogramEnd() {
   }
   invalidate();
   firstPattern = false;
-  properties.showSequenceNumbers = saveShowSequenceNumbers;
+  setProperty("showSequenceNumbers",saveShowSequenceNumbers);
   closeRedirection();
 }
 
@@ -1033,7 +1173,7 @@ function onPassThrough(text) {
 }
 
 function onSection() {
-  if (properties.toolAsName && !tool.description) {
+  if (getProperty("toolAsName") && !tool.description) {
     if (hasParameter("operation-comment")) {
       error(subst(localize("Tool description is empty in operation \"%1\"."), getParameter("operation-comment").toUpperCase()));
     } else {
@@ -1048,7 +1188,7 @@ function onSection() {
     (currentSection.getForceToolChange && currentSection.getForceToolChange()) ||
     (tool.number != getPreviousSection().getTool().number) ||
     (tool.clockwise != getPreviousSection().getTool().clockwise) ||
-    conditional(properties.toolAsName, tool.description != getPreviousSection().getTool().description);
+    conditional(getProperty("toolAsName"), tool.description != getPreviousSection().getTool().description);
   retracted = false; // specifies that the tool has been retracted to the safe plane
   var zIsOutput = false; // true if the Z-position has been output, used for patterns
 
@@ -1071,9 +1211,9 @@ function onSection() {
 
     if ((forceMultiAxisIndexing || !is3D() || machineConfiguration.isMultiAxisConfiguration()) && newWorkPlane) { // reset working plane
       onCommand(COMMAND_UNLOCK_MULTI_AXIS);
-      if (properties.usePlane == "true") {
+      if (getProperty("usePlane") == "true") {
         writeBlock("PLANE RESET STAY");
-      } else if (properties.usePlane == "false") {
+      } else if (getProperty("usePlane") == "false") {
         writeBlock("CYCL DEF 19.0 " + localize("WORKING PLANE"));
         if (machineConfiguration.isMultiAxisConfiguration()) {
           writeBlock(
@@ -1086,13 +1226,13 @@ function onSection() {
           writeBlock("CYCL DEF 19.1 A" + abcFormat.format(0) + " B" + abcFormat.format(0) + " C" + abcFormat.format(0));
         }
       } else {
-        // specify code here in case properties.usePlane = "none" if needed
+        // specify code here in case getProperty("usePlane") = "none" if needed
       }
       forceWorkPlane();
     }
 
     // retract to safe plane
-    // if (!properties.useM140 || !isFirstSection()) { // cannot use M140 here since no tool is called yet which specifies the tool axis for M140
+    // if (!getProperty("useM140") || !isFirstSection()) { // cannot use M140 here since no tool is called yet which specifies the tool axis for M140
       writeRetract(Z);
     // }
 
@@ -1109,7 +1249,7 @@ function onSection() {
     }
   }
 
-  if (properties.showNotes && hasParameter("notes")) {
+  if (getProperty("showNotes") && hasParameter("notes")) {
     var notes = getParameter("notes");
     if (notes) {
       var lines = String(notes).split("\n");
@@ -1129,7 +1269,7 @@ function onSection() {
   
     onCommand(COMMAND_STOP_SPINDLE);
 
-    if (!isFirstSection() && properties.optionalStop) {
+    if (!isFirstSection() && getProperty("optionalStop")) {
       onCommand(COMMAND_STOP_CHIP_TRANSPORT);
       onCommand(COMMAND_OPTIONAL_STOP);
     }
@@ -1155,7 +1295,7 @@ function onSection() {
 
     var spindleSpeedValue = (isInspectionOperation(currentSection) || isProbeOperation()) ? 50 : spindleSpeed;
     writeBlock(
-      "TOOL CALL " + (properties.toolAsName ? "\"" + (tool.description.toUpperCase()) + "\"" : tool.number) +
+      "TOOL CALL " + (getProperty("toolAsName") ? "\"" + (tool.description.toUpperCase()) + "\"" : tool.number) +
       SP + getSpindleAxisLetter(machineConfiguration.getSpindleAxis()) + " S" + rpmFormat.format(spindleSpeedValue)
     );
     if (tool.comment) {
@@ -1164,16 +1304,16 @@ function onSection() {
 
     onCommand(COMMAND_TOOL_MEASURE);
 
-    if (properties.preloadTool) {
-      var nextTool = (properties.toolAsName ? getNextToolDescription(tool.description) : getNextTool(tool.number));
+    if (getProperty("preloadTool")) {
+      var nextTool = (getProperty("toolAsName") ? getNextToolDescription(tool.description) : getNextTool(tool.number));
       if (nextTool) {
-        writeBlock("TOOL DEF " + (properties.toolAsName ? "\"" + (nextTool.description.toUpperCase()) + "\"" : nextTool.number));
+        writeBlock("TOOL DEF " + (getProperty("toolAsName") ? "\"" + (nextTool.description.toUpperCase()) + "\"" : nextTool.number));
       } else {
         // preload first tool
         var section = getSection(0);
         var firstToolNumber = section.getTool().number;
         var firstToolDescription = section.getTool().description;
-        if (properties.toolAsName) {
+        if (getProperty("toolAsName")) {
           if (tool.description != firstToolDescription) {
             writeBlock("TOOL DEF " + "\"" + (firstToolDescription.toUpperCase()) + "\"");
           }
@@ -1240,7 +1380,7 @@ function onSection() {
     // global position
     var initialPosition = getFramePosition(getGlobalPosition(currentSection.getInitialPosition()));
 
-    if (properties.usePlane != "none") {
+    if (getProperty("usePlane") != "none") {
       // global position
       forceXYZ();
       writeBlock("CYCL DEF 7.0 " + localize("DATUM SHIFT"));
@@ -1249,7 +1389,7 @@ function onSection() {
       writeBlock("CYCL DEF 7.3" + zOutput.format(initialPosition.z));
     }
 
-    if (properties.usePlane == "true") {
+    if (getProperty("usePlane") == "true") {
       if (machineConfiguration.isMultiAxisConfiguration()) {
         writeBlock(
           "PLANE SPATIAL SPA" + abcFormat.format(abc.x % (Math.PI * 2)) + " SPB" + abcFormat.format(abc.y % (Math.PI * 2)) + " SPC" + abcFormat.format(abc.z % (Math.PI * 2)) + " STAY"
@@ -1274,7 +1414,7 @@ function onSection() {
           " NX" + txyzFormat.format(W.forward.x) + " NY" + txyzFormat.format(W.forward.y) + " NZ" + txyzFormat.format(W.forward.z) + TURN
         );
       }
-    } else if (properties.usePlane == "false") {
+    } else if (getProperty("usePlane") == "false") {
       writeBlock("CYCL DEF 19.0 " + localize("WORKING PLANE"));
       if (machineConfiguration.isMultiAxisConfiguration()) {
         writeBlock(
@@ -1292,14 +1432,14 @@ function onSection() {
         error(localize("Multi-axis toolpath is not allowed without a machine configuration."));
         return;
       }
-      // specify code here in case properties.usePlane = "none" if needed
+      // specify code here in case getProperty("usePlane") = "none" if needed
     }
 
-    if ((machineConfiguration.isHeadConfiguration() || useTCPPositioning) && (properties.usePlane == "true")) {
+    if ((machineConfiguration.isHeadConfiguration() || useTCPPositioning) && (getProperty("usePlane") == "true")) {
       setWorkPlane(new Vector(0, 0, 0), false, false); // reset working plane
       setTCP(true);
     }
-    if (properties.usePlane != "none") {
+    if (getProperty("usePlane") != "none") {
       writeBlock("L" + xOutput.format(0) + yOutput.format(0) + " R0 FMAX");
       writeBlock("L" + zOutput.format(0) + " R0 FMAX");
 
@@ -1308,12 +1448,12 @@ function onSection() {
       writeBlock("CYCL DEF 7.2 Y" + xyzFormat.format(0));
       writeBlock("CYCL DEF 7.3 Z" + xyzFormat.format(0));
     }
-    if (properties.usePlane == "true") {
+    if (getProperty("usePlane") == "true") {
       if (!useTCPPositioning && !machineConfiguration.isHeadConfiguration()) {
         setWorkPlane(new Vector(0, 0, 0), false, false); // reset working plane
         setTCP(true);
       }
-    } else if (properties.usePlane == "false") {
+    } else if (getProperty("usePlane") == "false") {
       writeBlock("CYCL DEF 19.0 " + localize("WORKING PLANE"));
       if (machineConfiguration.isMultiAxisConfiguration()) {
         writeBlock(
@@ -1349,7 +1489,7 @@ function onSection() {
         zIsOutput = true;
       }
     }
-    if ((machineConfiguration.isHeadConfiguration() || useTCPPositioning) && properties.usePlane == "true") { // enable to use prepositioning with TCP, recommended for head/head or head/table kinematics
+    if ((machineConfiguration.isHeadConfiguration() || useTCPPositioning) && getProperty("usePlane") == "true") { // enable to use prepositioning with TCP, recommended for head/head or head/table kinematics
       if (abc.isNonZero()) {
         setWorkPlane(new Vector(0, 0, 0), false, false); // reset working plane
         setTCP(true);
@@ -1386,12 +1526,12 @@ function onSection() {
   if (hasParameter("operation-strategy") && (getParameter("operation-strategy") == "drill")) {
     setTolerance(0);
   } else if (hasParameter("operation:tolerance")) {
-    setTolerance(Math.max(Math.min(getParameter("operation:tolerance"), properties.smoothingTolerance), 0));
+    setTolerance(Math.max(Math.min(getParameter("operation:tolerance"), getProperty("smoothingTolerance")), 0));
   } else {
     setTolerance(0);
   }
   
-  if (properties.useParametricFeed &&
+  if (getProperty("useParametricFeed") &&
       hasParameter("operation-strategy") &&
       (getParameter("operation-strategy") != "drill") && // legacy
       !(currentSection.hasAnyCycle && currentSection.hasAnyCycle())) {
@@ -1417,17 +1557,17 @@ function onSection() {
 
 function setTCP(tcp) {
   if (typeof currentSection == "undefined" ||
-    (properties.usePlane == "none" && currentSection.isOptimizedForMachine() && currentSection.getOptimizedTCPMode() != 0)) {
+    (getProperty("usePlane") == "none" && currentSection.isOptimizedForMachine() && currentSection.getOptimizedTCPMode() != 0)) {
     return;
   }
   if (tcp) {
-    if (properties.useFunctionTCPM) {
+    if (getProperty("useFunctionTCPM")) {
       writeBlock("FUNCTION TCPM F TCP AXIS POS PATHCTRL AXIS");
     } else {
       writeBlock(mFormat.format(128));
     }
   } else {
-    if (properties.useFunctionTCPM) {
+    if (getProperty("useFunctionTCPM")) {
       writeBlock("FUNCTION RESET TCPM");
     } else {
       writeBlock(mFormat.format(129));
@@ -1791,7 +1931,7 @@ function onCycle() {
     return;
   }
   if (!isSameDirection(getRotation().forward, new Vector(0, 0, 1))) {
-    expandCurrentCycle = properties.expandCycles;
+    expandCurrentCycle = getProperty("expandCycles");
     if (!expandCurrentCycle) {
       cycleNotSupported();
     }
@@ -1857,7 +1997,7 @@ function onCycle() {
     break;
   case "bore-milling":
     if (cycle.numberOfSteps > 1) {
-      expandCurrentCycle = properties.expandCycles;
+      expandCurrentCycle = getProperty("expandCycles");
       if (!expandCurrentCycle) {
         cycleNotSupported();
       }
@@ -1867,7 +2007,7 @@ function onCycle() {
     break;
   case "thread-milling":
     if (cycle.numberOfSteps > 1) {
-      expandCurrentCycle = properties.expandCycles;
+      expandCurrentCycle = getProperty("expandCycles");
       if (!expandCurrentCycle) {
         cycleNotSupported();
       }
@@ -1879,7 +2019,7 @@ function onCycle() {
     onCircularPocketMilling(cycle);
     break;
   default:
-    expandCurrentCycle = properties.expandCycles;
+    expandCurrentCycle = getProperty("expandCycles");
     if (!expandCurrentCycle) {
       cycleNotSupported();
     }
@@ -2668,11 +2808,6 @@ function onSectionEnd() {
   invalidate();
 }
 
-properties.homeXYAtEnd = true;
-if (propertyDefinitions === undefined) {
-  propertyDefinitions = {};
-}
-propertyDefinitions.homeXYAtEnd = {title:"Home XY at end", description:"Specifies that the machine moves to the home position in XY at the end of the program.", type:"boolean"};
 
 /** Output block to do safe retract and/or move to home position. */
 function writeRetract() {
@@ -2690,7 +2825,7 @@ function writeRetract() {
       block += "Y" + xyzFormat.format(machineConfiguration.hasHomePositionY() ? machineConfiguration.getHomePositionY() : 0) + " ";
       break;
     case Z:
-      if (properties.useM140) {
+      if (getProperty("useM140")) {
         validate((arguments.length <= 1), "Retracts for the Z-axis have to be specified separately by using the useM140 property.");
         writeBlock("L " + mFormat.format(140) + " MB MAX");
         retracted = true; // specifies that the tool has been retracted to the safe plane
@@ -2707,7 +2842,7 @@ function writeRetract() {
     }
   }
   if (block) {
-    writeBlock("L " + block + "R0 FMAX " + mFormat.format(properties.useM92 ? 92 : 91));
+    writeBlock("L " + block + "R0 FMAX " + mFormat.format(getProperty("useM92") ? 92 : 91));
   }
   zOutput.reset();
 }
@@ -2739,7 +2874,7 @@ function onClose() {
 
   writeRetract(Z);
 
-  if (properties.homeXYAtEnd) {
+  if (getProperty("homeXYAtEnd")) {
     writeRetract(X, Y);
   }
 
@@ -2774,4 +2909,8 @@ function onClose() {
   writeBlock(
     "END PGM" + (programName ? (SP + programName) : "") + ((unit == MM) ? " MM" : " INCH")
   );
+}
+
+function setProperty(property, value) {
+  properties[property].current = value;
 }
