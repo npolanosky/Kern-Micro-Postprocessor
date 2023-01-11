@@ -11,14 +11,14 @@
 */
 
 // >>>>> INCLUDED FROM generic_posts/heidenhain.cps
-description = "Heidenhain";
-vendor = "Heidenhain";
+description = "Kern Micro TNC640";
+vendor = "OnlyKerns";
 vendorUrl = "http://www.heidenhain.com";
 legal = "Copyright (C) 2012-2022 by Autodesk, Inc.";
 certificationLevel = 2;
 minimumRevision = 45821;
 
-longDescription = "Generic post for Heidenhain controls like iTNC 530, TNC 620, and TNC 640.";
+longDescription = "Post for Kern Micro Pro, Vario, and HD with the TNC640 control";
 
 extension = "h";
 if (getCodePage() == 932) { // shift-jis is not supported
@@ -28,7 +28,7 @@ if (getCodePage() == 932) { // shift-jis is not supported
 }
 
 capabilities = CAPABILITY_MILLING | CAPABILITY_MACHINE_SIMULATION;
-tolerance = spatial(0.002, MM);
+tolerance = spatial(0.001, MM);
 
 minimumChordLength = spatial(0.25, MM);
 minimumCircularRadius = spatial(0.01, MM);
@@ -106,7 +106,7 @@ properties = {
     description: "Smoothing tolerance (0 for disabled).",
     group      : "preferences",
     type       : "number",
-    value      : 0,
+    value      : 0.1,
     scope      : "post"
   },
   optionalStop: {

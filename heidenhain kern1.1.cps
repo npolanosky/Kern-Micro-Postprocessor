@@ -6,7 +6,7 @@
 
   $Revision$
   $Date$
-  
+
   FORKID {36E63822-3A79-42b9-96EA-6B661FE8D0C8}
 */
 
@@ -40,44 +40,44 @@ allowedCircularPlanes = undefined; // allow any circular motion
 // user-defined properties
 properties = {
   writeMachine: {
-    title: "Write machine",
+    title      : "Write machine",
     description: "Output the machine settings in the header of the code.",
-    group: 0,
-    type: "boolean",
-    value: false,
-    scope: "post"
+    group      : 0,
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   writeTools: {
-    title: "Write tool list",
+    title      : "Write tool list",
     description: "Output a tool list in the header of the code.",
-    group: 0,
-    type: "boolean",
-    value: true,
-    scope: "post"
+    group      : 0,
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   writeVersion: {
-    title: "Write version",
+    title      : "Write version",
     description: "Write the version number in the header of the code.",
-    group: 0,
-    type: "boolean",
-    value: false,
-    scope: "post"
+    group      : 0,
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   usePlane: {
-    title: "Tilted workplane",
+    title      : "Tilted workplane",
     description: "Specifies the tilted workplane command to use.",
-    type: "enum",
-    values: [
+    type       : "enum",
+    values     : [
       {
-        id: "none",
+        id   : "none",
         title: "Use rotary angles"
       },
       {
-        id: "true",
+        id   : "true",
         title: "Use Plane Spatial"
       },
       {
-        id: "false",
+        id   : "false",
         title: "Use Cycle19"
       }
     ],
@@ -85,119 +85,119 @@ properties = {
     scope: "post"
   },
   useFunctionTCPM: {
-    title: "Use function TCPM",
+    title      : "Use function TCPM",
     description: "Specifies whether to use Function TCPM instead of M128/M129.",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   preloadTool: {
-    title: "Preload tool",
+    title      : "Preload tool",
     description: "Preloads the next tool at a tool change (if any).",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   expandCycles: {
-    title: "Expand cycles",
+    title      : "Expand cycles",
     description: "If enabled, unhandled cycles are expanded.",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   smoothingTolerance: {
-    title: "Smoothing tolerance",
+    title      : "Smoothing tolerance",
     description: "Smoothing tolerance (-1 for disabled).",
-    type: "number",
-    value: 0.1,
-    scope: "post"
+    type       : "number",
+    value      : 0.1,
+    scope      : "post"
   },
   optionalStop: {
-    title: "Optional stop",
+    title      : "Optional stop",
     description: "Outputs optional stop code during when necessary in the code.",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   structureComments: {
-    title: "Structure comments",
+    title      : "Structure comments",
     description: "Shows structure comments.",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   useM92: {
-    title: "Use M92",
+    title      : "Use M92",
     description: "If enabled, M91 is used instead of M91.",
-    type: "boolean",
-    value: false,
-    scope: "post"
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   useM140: {
-    title: "Use M140",
+    title      : "Use M140",
     description: "Specifies to use M140 MB MAX for Z-axis retracts instead of M91/M92 positions.",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   useSubroutines: {
-    title: "Use subroutines",
+    title      : "Use subroutines",
     description: "Specifies that subroutines per each operation should be generated.",
-    type: "boolean",
-    value: false,
-    scope: "post"
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   useSubroutinePatterns: {
-    title: "Use subroutine patterns",
+    title      : "Use subroutine patterns",
     description: "Generates subroutines for patterned operation.",
-    type: "boolean",
-    value: false,
-    scope: "post"
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   useSubroutineCycles: {
-    title: "Use subroutine cycles",
+    title      : "Use subroutine cycles",
     description: "Generates subroutines for cycle operations on same holes.",
-    type: "boolean",
-    value: false,
-    scope: "post"
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   machineDefinition: {
-    title: "Machine definition",
+    title      : "Machine definition",
     description: "Specifies the file path of the machine definition to use.",
-    type: "file",
-    filters: "*.machine|Machine Configuration",
-    value: "",
-    scope: "post"
+    type       : "file",
+    filters    : "*.machine|Machine Configuration",
+    value      : "",
+    scope      : "post"
   },
   useParametricFeed: {
-    title: "Parametric feed",
+    title      : "Parametric feed",
     description: "Specifies the feed value that should be output using a Q value.",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   },
   showNotes: {
-    title: "Show notes",
+    title      : "Show notes",
     description: "Writes operation notes as comments in the outputted code.",
-    type: "boolean",
-    value: false,
-    scope: "post"
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   preferTilt: {
-    title: "Prefer tilt",
+    title      : "Prefer tilt",
     description: "Specifies which tilt direction is preferred.",
-    type: "integer",
-    values: [
+    type       : "integer",
+    values     : [
       {
-        id: -1,
+        id   : -1,
         title: "Negative"
       },
       {
-        id: 0,
+        id   : 0,
         title: "Either"
       },
       {
-        id: 1,
+        id   : 1,
         title: "Positive"
       }
     ],
@@ -205,25 +205,25 @@ properties = {
     scope: "post"
   },
   toolAsName: {
-    title: "Tool as name",
+    title      : "Tool as name",
     description: "If enabled, the tool will be called with the tool description rather than the tool number.",
-    type: "boolean",
-    value: false,
-    scope: "post"
+    type       : "boolean",
+    value      : false,
+    scope      : "post"
   },
   decimalPrecision: {
-    title: "Decimal Precision",
+    title      : "Decimal Precision",
     description: "Specifies the numbers of decimals to use in the NC program.",
-    type: "number",
-    value: 4,
-    scope: "post"
+    type       : "number",
+    value      : 4,
+    scope      : "post"
   },
   homeXYAtEnd: {
-    title: "Home XY at end",
+    title      : "Home XY at end",
     description: "Specifies that the machine moves to the home position in XY at the end of the program.",
-    type: "boolean",
-    value: true,
-    scope: "post"
+    type       : "boolean",
+    value      : true,
+    scope      : "post"
   }
 };
 
@@ -232,15 +232,15 @@ var singleLineCoolant = false; // specifies to output multiple coolant codes in 
 // {id: COOLANT_THROUGH_TOOL, on: 88, off: 89}
 // {id: COOLANT_THROUGH_TOOL, on: [8, 88], off: [9, 89]}
 var coolants = [
-  {id: COOLANT_FLOOD, on: 8, off: 9},
-  {id: COOLANT_MIST, on: 7, off: 9},
-  {id: COOLANT_THROUGH_TOOL, on: 308, off: 309},
-  {id: COOLANT_AIR, on: 510, off: 511},
-  {id: COOLANT_AIR_THROUGH_TOOL, on: 310, off: 309},
-  {id: COOLANT_SUCTION},
-  {id: COOLANT_FLOOD_MIST},
-  {id: COOLANT_FLOOD_THROUGH_TOOL, on: [308, 8], off: [309, 9]},
-  {id: COOLANT_OFF, off: 9}
+  {id:COOLANT_FLOOD, on:8, off:9},
+  {id:COOLANT_MIST, on:7, off:9},
+  {id:COOLANT_THROUGH_TOOL, on:308, off:309},
+  {id:COOLANT_AIR, on:510, off:511},
+  {id:COOLANT_AIR_THROUGH_TOOL, on:310, off:309},
+  {id:COOLANT_SUCTION},
+  {id:COOLANT_FLOOD_MIST},
+  {id:COOLANT_FLOOD_THROUGH_TOOL, on:[308, 8], off:[309, 9]},
+  {id:COOLANT_OFF, off:9}
 ];
 
 // fixed settings
@@ -302,7 +302,7 @@ var taperFormat = angleFormat; // share format
 
 var xOutput = createVariable({prefix:" X"}, xyzFormat);
 var yOutput = createVariable({prefix:" Y"}, xyzFormat);
-var zOutput = createVariable({onchange:function () {retracted = false;}, prefix: " Z"}, xyzFormat);
+var zOutput = createVariable({onchange:function () {retracted = false;}, prefix:" Z"}, xyzFormat);
 var txOutput = createVariable({prefix:" TX", force:true}, txyzFormat);
 var tyOutput = createVariable({prefix:" TY", force:true}, txyzFormat);
 var tzOutput = createVariable({prefix:" TZ", force:true}, txyzFormat);
@@ -407,12 +407,10 @@ function onOpen() {
     optimizeMachineAngles2(0); // using M128 mode
   }
 
-
   // NOTE: setup your home positions here
   // machineConfiguration.setRetractPlane(-20.415); // home position Z
   machineConfiguration.setHomePositionX(50); // home position X
   machineConfiguration.setHomePositionY(50); // home position Y
-
 
   if (!machineConfiguration.isMachineCoordinate(0)) {
     aOutput.disable();
@@ -423,7 +421,7 @@ function onOpen() {
   if (!machineConfiguration.isMachineCoordinate(2)) {
     cOutput.disable();
   }
-  
+
   writeBlock(
     "BEGIN PGM" + (programName ? (SP + programName) : "") + ((unit == MM) ? " MM" : " INCH")
   );
@@ -753,7 +751,7 @@ function getWorkPlaneMachineABC(workPlane, _setWorkPlane) {
   } else {
     abc = machineConfiguration.getPreferredABC(abc);
   }
-  
+
   try {
     abc = machineConfiguration.remapABC(abc);
     if (_setWorkPlane) {
@@ -767,12 +765,12 @@ function getWorkPlaneMachineABC(workPlane, _setWorkPlane) {
       + conditional(machineConfiguration.isMachineCoordinate(2), " C" + abcFormat.format(abc.z))
     );
   }
-  
+
   var direction = machineConfiguration.getDirection(abc);
   if (!isSameDirection(direction, W.forward)) {
     error(localize("Orientation not supported."));
   }
-  
+
   if (!machineConfiguration.isABCSupported(abc)) {
     error(
       localize("Work plane is not supported") + ":"
@@ -781,7 +779,7 @@ function getWorkPlaneMachineABC(workPlane, _setWorkPlane) {
       + conditional(machineConfiguration.isMachineCoordinate(2), " C" + abcFormat.format(abc.z))
     );
   }
-  
+
   var tcp = false; // keep false for CYCL 19
   if (tcp) {
     setRotation(W); // TCP mode
@@ -790,7 +788,7 @@ function getWorkPlaneMachineABC(workPlane, _setWorkPlane) {
     var R = machineConfiguration.getRemainingOrientation(abc, W);
     setRotation(R);
   }
-  
+
   return abc;
 }
 
@@ -822,7 +820,7 @@ function getFeed(f) {
 function initializeActiveFeeds() {
   activeMovements = new Array();
   var movements = currentSection.getMovements();
-  
+
   var id = 0;
   var activeFeeds = new Array();
   if (hasParameter("operation:tool_feedCutting")) {
@@ -841,7 +839,7 @@ function initializeActiveFeeds() {
     }
     ++id;
   }
-  
+
   if (hasParameter("operation:finishFeedrate")) {
     if (movements & (1 << MOVEMENT_FINISH_CUTTING)) {
       var feedContext = new FeedContext(id, localize("Finish"), getParameter("operation:finishFeedrate"));
@@ -857,7 +855,7 @@ function initializeActiveFeeds() {
     }
     ++id;
   }
-  
+
   if (hasParameter("operation:tool_feedEntry")) {
     if (movements & (1 << MOVEMENT_LEAD_IN)) {
       var feedContext = new FeedContext(id, localize("Entry"), getParameter("operation:tool_feedEntry"));
@@ -893,7 +891,7 @@ function initializeActiveFeeds() {
     }
     ++id;
   }
-  
+
   if (hasParameter("operation:reducedFeedrate")) {
     if (movements & (1 << MOVEMENT_REDUCED)) {
       var feedContext = new FeedContext(id, localize("Reduced"), getParameter("operation:reducedFeedrate"));
@@ -930,7 +928,7 @@ function initializeActiveFeeds() {
     }
     ++id;
   }
-  
+
   for (var i = 0; i < activeFeeds.length; ++i) {
     var feedContext = activeFeeds[i];
     writeBlock("FN0: Q" + (50 + feedContext.id) + "=" + feedFormat.format(feedContext.feed) + " ; " + feedContext.description);
@@ -978,12 +976,12 @@ function subprogramDefine(_initialPosition, _abc, _retracted, _zIsOutput) {
         currentSubprogram = nextLabel++;
       }
       definedPatterns.push({
-        patternType: SUB_PATTERN,
-        patternId: currentPattern,
-        subProgram: currentSubprogram,
-        validPattern: usePattern,
+        patternType    : SUB_PATTERN,
+        patternId      : currentPattern,
+        subProgram     : currentSubprogram,
+        validPattern   : usePattern,
         initialPosition: _initialPosition,
-        finalPosition: _initialPosition
+        finalPosition  : _initialPosition
       });
     }
 
@@ -1029,12 +1027,12 @@ function subprogramDefine(_initialPosition, _abc, _retracted, _zIsOutput) {
         currentSubprogram = nextLabel++;
       }
       definedPatterns.push({
-        patternType: SUB_CYCLE,
-        patternId: currentPattern,
-        subProgram: currentSubprogram,
-        validPattern: usePattern,
+        patternType    : SUB_CYCLE,
+        patternId      : currentPattern,
+        subProgram     : currentSubprogram,
+        validPattern   : usePattern,
         initialPosition: _initialPosition,
-        finalPosition: finalPosition
+        finalPosition  : finalPosition
       });
     }
     cycleSubprogramIsActive = usePattern;
@@ -1060,7 +1058,7 @@ function subprogramStart(_initialPosition, _abc, _incremental) {
     conditional(comment, formatComment(comment.substr(0, maximumLineLength - 2 - 6 - 1)))
   );
   saveShowSequenceNumbers = getProperty("showSequenceNumbers");
-  setProperty("showSequenceNumbers",false);
+  setProperty("showSequenceNumbers", false);
   if (_incremental) {
     setIncrementalMode(_initialPosition, _abc);
   }
@@ -1073,7 +1071,7 @@ function subprogramEnd() {
   }
   invalidate();
   firstPattern = false;
-  setProperty("showSequenceNumbers",saveShowSequenceNumbers);
+  setProperty("showSequenceNumbers", saveShowSequenceNumbers);
   closeRedirection();
 }
 
@@ -1139,7 +1137,7 @@ function subprogramIsValid(_section, _patternId, _patternType) {
 
 function setAxisMode(_format, _output, _prefix, _value, _incr) {
   var i = _output.isEnabled();
-  _output = _incr ? createIncrementalVariable({prefix: _prefix}, _format) : createVariable({prefix: _prefix}, _format);
+  _output = _incr ? createIncrementalVariable({prefix:_prefix}, _format) : createVariable({prefix:_prefix}, _format);
   _output.format(_value);
   _output.format(_value);
   i = i ? _output.enable() : _output.disable();
@@ -1206,7 +1204,7 @@ function onSection() {
   if (insertToolCall) {
     setCoolant(COOLANT_OFF);
   }
-  
+
   if (insertToolCall || newWorkOffset || newWorkPlane) {
 
     if ((forceMultiAxisIndexing || !is3D() || machineConfiguration.isMultiAxisConfiguration()) && newWorkPlane) { // reset working plane
@@ -1233,7 +1231,7 @@ function onSection() {
 
     // retract to safe plane
     // if (!getProperty("useM140") || !isFirstSection()) { // cannot use M140 here since no tool is called yet which specifies the tool axis for M140
-      writeRetract(Z);
+    writeRetract(Z);
     // }
 
     if (fullRetract) {
@@ -1263,10 +1261,10 @@ function onSection() {
       }
     }
   }
-  
+
   if (insertToolCall) {
     forceWorkPlane();
-  
+
     onCommand(COMMAND_STOP_SPINDLE);
 
     if (!isFirstSection() && getProperty("optionalStop")) {
@@ -1348,7 +1346,7 @@ function onSection() {
   if (!isProbeOperation() && !isInspectionOperation(currentSection)) {
     onCommand(tool.clockwise ? COMMAND_SPINDLE_CLOCKWISE : COMMAND_SPINDLE_COUNTERCLOCKWISE);
   }
-  
+
   setWCS();
   var abc = defineWorkPlane(currentSection, true);
 
@@ -1357,7 +1355,7 @@ function onSection() {
   }
 
   invalidate();
-  
+
   if (currentSection.isMultiAxis()) {
     if (!retracted) {
       writeRetract(Z);
@@ -1406,7 +1404,7 @@ function onSection() {
           var imX = Vector.cross(new Vector(0, 1, 0), forward).getNormalized();
           W = new Matrix(imX, Vector.cross(forward, imX), forward); // make sure this is orthogonal
         }
-        
+
         var TURN = true ? " TURN FMAX" : " STAY"; // alternatively slow down with F9999
         writeBlock(
           "PLANE VECTOR" +
@@ -1513,7 +1511,7 @@ function onSection() {
     }
     zIsOutput = true;
   }
-  
+
   // set coolant after we have positioned at Z
   if (insertToolCall && !isFirstSection()) {
     forceCoolant();
@@ -1530,7 +1528,7 @@ function onSection() {
   } else {
     setTolerance(0);
   }
-  
+
   if (getProperty("useParametricFeed") &&
       hasParameter("operation-strategy") &&
       (getParameter("operation-strategy") != "drill") && // legacy
@@ -1817,7 +1815,7 @@ function getDisengagementDirection(direction) {
 
 function onFineBoring(cycle) {
   // we do not support cycle.shift
-  
+
   writeBlock("CYCL DEF 202 " + localize("BORING") + " ~" + EOL
     + "  Q200=" + xyzFormat.format(cycle.retract - cycle.stock) + " ;" + localize("SET-UP CLEARANCE") + " ~" + EOL
     + "  Q201=" + xyzFormat.format(-cycle.depth) + " ;" + localize("DEPTH") + " ~" + EOL
@@ -1898,7 +1896,7 @@ function onCircularPocketMilling(cycle) {
     error(localize("Circular pocket milling is not supported for taper tools."));
     return;
   }
-  
+
   // do NOT use with undercutting - doesnt move to the center before retracting
   writeBlock("CYCL DEF 252 " + localize("CIRCULAR POCKET") + " ~" + EOL
     + "  Q215=1 ;" + localize("MACHINE OPERATION") + " ~" + EOL
@@ -2349,7 +2347,7 @@ function onCyclePoint(x, y, z) {
     }
     return;
   }
-  
+
   if (!expandCurrentCycle) {
     // execute current cycle after this positioning block
     /*
@@ -2603,7 +2601,7 @@ function onCircular(clockwise, cx, cy, cz, x, y, z, feed) {
     block += clockwise ? " DR-" : " DR+";
     block += /*radiusCompensationTable.lookup(radiusCompensation) +*/ getFeed(feed);
     writeBlock(block);
-    
+
     switch (getCircularPlane()) {
     case PLANE_XY:
       xOutput.reset();
@@ -2724,13 +2722,13 @@ function getCoolantCodes(coolant, isGunDrilling) {
 }
 
 var mapCommand = {
-  COMMAND_STOP:0,
-  COMMAND_OPTIONAL_STOP:1,
-  COMMAND_END:30,
-  COMMAND_SPINDLE_CLOCKWISE:3,
-  COMMAND_SPINDLE_COUNTERCLOCKWISE:4,
+  COMMAND_STOP                    : 0,
+  COMMAND_OPTIONAL_STOP           : 1,
+  COMMAND_END                     : 30,
+  COMMAND_SPINDLE_CLOCKWISE       : 3,
+  COMMAND_SPINDLE_COUNTERCLOCKWISE: 4,
   // COMMAND_START_SPINDLE
-  COMMAND_STOP_SPINDLE:5
+  COMMAND_STOP_SPINDLE            : 5
   //COMMAND_ORIENTATE_SPINDLE:19,
   //COMMAND_LOAD_TOOL:6, // do not use
   //COMMAND_COOLANT_ON,
@@ -2767,7 +2765,7 @@ function onCommand(command) {
   case COMMAND_PROBE_OFF:
     return;
   }
-  
+
   var stringId = getCommandStringId(command);
   var mcode = mapCommand[stringId];
   if (mcode != undefined) {
@@ -2807,7 +2805,6 @@ function onSectionEnd() {
   }
   invalidate();
 }
-
 
 /** Output block to do safe retract and/or move to home position. */
 function writeRetract() {
@@ -2849,7 +2846,7 @@ function writeRetract() {
 
 function onClose() {
   optionalSection = false;
-  
+
   setTolerance(0);
   setCoolant(COOLANT_OFF);
 
@@ -2890,7 +2887,7 @@ function onClose() {
   }
 
   setWorkPlane(new Vector(0, 0, 0), true, false); // reset working plane - just turn again
-  
+
   if (forceMultiAxisIndexing || !is3D() || machineConfiguration.isMultiAxisConfiguration()) {
     writeBlock(mFormat.format(127)); // cancel shortest path traverse
   }
